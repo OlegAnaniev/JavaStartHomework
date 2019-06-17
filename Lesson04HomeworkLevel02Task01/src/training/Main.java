@@ -12,6 +12,8 @@ public class Main {
 		Scanner scanner = new Scanner(System.in);
 		int height;
 		int length;
+		int verticalPosition = 0;
+		int horisontalPosition = 0;
 		
 		System.out.print(INPUT_MESSAGE + " ");
 		height = scanner.nextInt();
@@ -23,17 +25,19 @@ public class Main {
 		
 		length = height * 2 - 1;
 		
-		for (int i = 0, j = 0; i < length; ) {
-			if ((i < height) && (j <= i) 
-					|| (i >= height) && (j < length - i)) {
+		while (verticalPosition < length) {
+			if ((verticalPosition < height) 
+					&& (horisontalPosition <= verticalPosition) 
+					|| (verticalPosition >= height) 
+					&& (horisontalPosition < length - verticalPosition)) {
 				System.out.print(PATTERN);
-				j++;
+				horisontalPosition++;
 				continue;				 
 			} 			
 			
 			System.out.println();
-			j = 0;
-			i++;			
+			horisontalPosition = 0;
+			verticalPosition++;			
 		}
 	}
 }
