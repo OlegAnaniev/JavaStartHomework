@@ -61,14 +61,12 @@ public class Main {
 	 * @param path <code>File</code>
 	 * @return <code>int[][]</code>
 	 */
-	private static int[][] read2dArrayFromFileAlternative(File path) {
-		
+	private static int[][] read2dArrayFromFileAlternative(File path) {		
 		StringBuilder text = new StringBuilder();
 		int[][] array = null;
 		int counter = 0;
 		int lineStart = 0;
 		int lineEnd;
-		int itemStart;
 		
 		try (Scanner scanner = new Scanner(path)) {
 			while (scanner.hasNextLine()) {
@@ -78,29 +76,9 @@ public class Main {
 				
 			array = new int[counter][];
 			
-			for (int i = 0; i < array.length; i++) {
-				
-				lineEnd = text.indexOf("\n", lineStart);
-				
-				counter = 0;
-				for (int j = lineStart; j <= lineEnd; j++) {
-					if (text.charAt(j) == ',') {
-						counter++;
-					}
-				}
-				
-				array[i] = new int[counter + 1];
-				
-				counter = 0;				
-				itemStart = lineStart;
-				for (int j = lineStart; j <= lineEnd; j++) {
-					if (text.charAt(j) == ',' || text.charAt(j) == '\n') {
-						array[i][counter++] = 
-								Integer.parseInt(text.substring(itemStart, j));						
-						itemStart = j + 1;
-					}
-				}
-				
+			for (int i = 0; i < array.length; i++) {				
+				lineEnd = text.indexOf("\n", lineStart);				
+				array[i] = read1dArray(text, lineStart, lineEnd);
 				lineStart = lineEnd + 1;
 			}			
 		} catch (IOException e) {
@@ -108,5 +86,41 @@ public class Main {
 		}	
 		
 		return array;
+	}
+	
+	/**
+	 * Reads 1d array of int from the specified interval of a text
+	 * 
+	 * @param text <code>StringBuilder</code>
+	 * @param lineStart <code>int</code>
+	 * @param lineEnd <code>int</code>
+	 * @return <code>int[]</code>
+	 * @author Oleg
+	 */
+	private static int[] read1dArray (StringBuilder text, int lineStart, 
+			int lineEnd) {
+		int[] array;
+		int counter = 0;
+		int itemStart;
+		
+		for (int j = lineStart; j <= lineEnd; j++) {
+			if (text.charAt(j) == ',') {
+				counter++;
+			}
+		}
+		
+		array = new int[counter + 1];
+		
+		counter = 0;				
+		itemStart = lineStart;
+		for (int j = lineStart; j <= lineEnd; j++) {
+			if (text.charAt(j) == ',' || text.charAt(j) == '\n') {
+				array[counter++] = 
+						Integer.parseInt(text.substring(itemStart, j));						
+				itemStart = j + 1;
+			}
+		}
+		
+		return array;		
 	}
 }
