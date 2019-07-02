@@ -21,7 +21,7 @@ public class Main {
 	 * @author Oleg
 	 */
 	private static int countWords(String text) {
-		String[] array = text.split("[ |,|.|!|?]");
+		String[] array = text.split("[ ,.!?]");
 		int counter = 0;
 		
 		for (int i = 0; i < array.length; i++) {
