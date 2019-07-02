@@ -34,6 +34,7 @@ public class Main {
 		if (userInput % appartmentsPerEntrance != 0) {
 			entrance++;
 		}
+		//entrance = (userInput - 1) / 36 + 1;		
 		
 		appPositionInsideEntrance = userInput - 
 				(appartmentsPerEntrance * (entrance - 1));		
@@ -41,6 +42,8 @@ public class Main {
 		if (appPositionInsideEntrance % APPARTMENTS_PER_FLOOR != 0) {
 			floor++;
 		}
+		//userInput = userInput - 36 * (access - 1);
+		//floor = (number - 1) / 4 + 1;
 		
 		System.out.println(OUTPUT_ENTRANCE_MESSAGE + " " + entrance);
 		System.out.println(OUTPUT_FLOOR_MESSAGE + " " + floor);
